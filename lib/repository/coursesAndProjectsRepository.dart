@@ -6,6 +6,6 @@ abstract class CoursesAndProjectsRepository {
   Future<CoursesAndProjects> getInfo();
 
   Future<int> deleteInfo(int id);
-
+  // new commit
   Future<int> editInfo();
 }
