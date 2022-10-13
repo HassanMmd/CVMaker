@@ -5,7 +5,7 @@ abstract class CoursesAndProjectsRepository {
 
   Future<List<CoursesAndProjects>> getInfo();
 
-  Future<int> deleteInfo(int id);
+  Future<void> deleteInfo(int id);
   // new commit
   Future<int> editInfo();
 }

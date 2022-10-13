@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cvmaker/const.dart';
 import 'package:cvmaker/modle/coursesAndProjects.dart';
 import 'package:cvmaker/repository/coursesAndProjectsRepository.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class CoursesAndProjectsRepositoryImpl implements CoursesAndProjectsRepository {
@@ -21,9 +22,11 @@ class CoursesAndProjectsRepositoryImpl implements CoursesAndProjectsRepository {
   }
 
   @override
-  Future<int> deleteInfo(int id) {
-    // TODO: implement deleteInfo
-    throw UnimplementedError();
+  Future deleteInfo(int id) async{
+  final response = await http.delete(Uri.parse(url),
+  headers: <String, String>{
+    'Content-Type': 'application/json',
+  });
   }
 
   @override
