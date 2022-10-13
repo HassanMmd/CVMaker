@@ -1,9 +1,9 @@
 import 'package:cvmaker/modle/coursesAndProjects.dart';
 
 abstract class CoursesAndProjectsRepository {
-  Future<void> addInfo(CoursesAndProjects personalInfo);
+  Future<void> addInfo(CoursesAndProjects coursesAndProjects);
 
-  Future<CoursesAndProjects> getInfo();
+  Future<List<CoursesAndProjects>> getInfo();
 
   Future<int> deleteInfo(int id);
   // new commit

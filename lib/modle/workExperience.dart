@@ -4,6 +4,7 @@ class WorkExperience {
   String field;
   String place;
   String companyName;
+  //describtion
 
   WorkExperience(this.from, this.to, this.field, this.place, this.companyName);
 
