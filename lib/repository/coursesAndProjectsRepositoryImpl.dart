@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:cvmaker/const.dart';
 import 'package:cvmaker/modle/coursesAndProjects.dart';
 import 'package:cvmaker/repository/coursesAndProjectsRepository.dart';
-import 'package:cvmaker/requestResopnse.dart';
+import 'package:cvmaker/networkResopnse.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class CoursesAndProjectsRepositoryImpl implements CoursesAndProjectsRepository {
 
-  RequestResponse requestResponse=RequestResponse();
+  NetworkResponse requestResponse=NetworkResponse();
 
 
   @override
