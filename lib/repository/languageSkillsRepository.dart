@@ -3,9 +3,9 @@ import 'package:cvmaker/modle/languageSkills.dart';
 abstract class LanguageSkillsRepository {
   Future<void> addInfo(LanguageSkills personalInfo);
 
-  Future<LanguageSkills> getInfo();
+  Future<List<LanguageSkills>> getInfo();
 
-  Future<int> deleteInfo(int id);
+  Future<void> deleteInfo(int id);
 
   Future<int> editInfo();
 }

@@ -3,10 +3,15 @@ import 'dart:convert';
 import 'package:cvmaker/const.dart';
 import 'package:cvmaker/modle/coursesAndProjects.dart';
 import 'package:cvmaker/repository/coursesAndProjectsRepository.dart';
+import 'package:cvmaker/requestResopnse.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class CoursesAndProjectsRepositoryImpl implements CoursesAndProjectsRepository {
+
+  RequestResponse requestResponse=RequestResponse();
+
+
   @override
   Future<void> addInfo(CoursesAndProjects coursesAndProjects) async {
     try {
@@ -40,6 +45,7 @@ class CoursesAndProjectsRepositoryImpl implements CoursesAndProjectsRepository {
     var response= await http.get(Uri.parse(url));
     List<CoursesAndProjects> coursersAndProjects=[];
     if(response.statusCode==200){
+      requestResponse.success=true;
       List data = jsonDecode(response.body);
       return data.map((e) => CoursesAndProjects.fromMap(e)).toList();
     }
