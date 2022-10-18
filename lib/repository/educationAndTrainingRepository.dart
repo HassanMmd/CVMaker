@@ -1,11 +1,13 @@
 import 'package:cvmaker/modle/educationAndTraining.dart';
 
+import '../networkResopnse.dart';
+
 abstract class EducationAndTrainingRepository {
-  Future<void> addInfo(EducationAndTraining personalInfo);
+  Future<NetworkResponse> addInfo(EducationAndTraining personalInfo);
 
-  Future<List<EducationAndTraining>> getInfo();
+  Future<NetworkResponse> getInfo();
 
-  Future<void> deleteInfo(int id);
+  Future<NetworkResponse> deleteInfo(int id);
 
-  Future<int> editInfo();
+  Future<NetworkResponse> editInfo();
 }

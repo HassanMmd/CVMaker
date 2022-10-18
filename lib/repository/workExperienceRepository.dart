@@ -1,11 +1,13 @@
 import 'package:cvmaker/modle/workExperience.dart';
 
+import '../networkResopnse.dart';
+
 abstract class WorkExperienceRepository {
-  Future<void> addInfo(WorkExperience personalInfo);
+  Future<NetworkResponse> addInfo(WorkExperience personalInfo);
 
-  Future<List<WorkExperience>> getInfo();
+  Future<NetworkResponse> getInfo();
 
-  Future<void> deleteInfo(int id);
+  Future<NetworkResponse> deleteInfo(int id);
 
-  Future<int> editInfo();
+  Future<NetworkResponse> editInfo();
 }

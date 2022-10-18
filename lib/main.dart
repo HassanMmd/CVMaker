@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -48,10 +52,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _auth = FirebaseAuth.instance;
+
+  @override
+  // void initState() async {
+  //   try{
+  //   final userCredential = await _auth.signInAnonymously();
+  // }catch(e){
+  //     print(e);
+  //   }
+  // }
+
   int _counter = 0;
 
-  void _incrementCounter() {
+  void _incrementCounter() async{
+    final userCredential = await _auth.signInAnonymously();
+    print('user $userCredential');
+    final id =await _auth.currentUser!.getIdToken();
+    print('id $id');
     setState(() {
+
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
