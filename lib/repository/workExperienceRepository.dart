@@ -1,4 +1,4 @@
-import 'package:cvmaker/modle/workExperience.dart';
+import 'package:cvmaker/model/workExperience.dart';
 
 import '../networkResopnse.dart';
 

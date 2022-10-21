@@ -1,6 +1,6 @@
 import 'package:cvmaker/networkResopnse.dart';
 
-import '../modle/personalInfo.dart';
+import '../model/personalInfo.dart';
 
 abstract class PersonalInfoRepository {
   Future<NetworkResponse> addInfo(PersonalInfo personalInfo);

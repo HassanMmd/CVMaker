@@ -1,4 +1,4 @@
-import 'package:cvmaker/modle/languageSkills.dart';
+import 'package:cvmaker/model/languageSkills.dart';
 
 import '../networkResopnse.dart';
 

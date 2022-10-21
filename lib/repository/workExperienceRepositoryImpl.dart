@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:cvmaker/const.dart';
-import 'package:cvmaker/modle/workExperience.dart';
+import 'package:cvmaker/model/workExperience.dart';
 import 'package:cvmaker/repository/workExperienceRepository.dart';
 import 'package:http/http.dart' as http;
 import 'package:cvmaker/networkResopnse.dart';

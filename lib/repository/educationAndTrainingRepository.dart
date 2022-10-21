@@ -1,4 +1,4 @@
-import 'package:cvmaker/modle/educationAndTraining.dart';
+import 'package:cvmaker/model/educationAndTraining.dart';
 
 import '../networkResopnse.dart';
 
