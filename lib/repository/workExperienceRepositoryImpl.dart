@@ -8,13 +8,13 @@ import 'package:cvmaker/networkResopnse.dart';
 
 class WorkExperienceRepositoryImpl implements WorkExperienceRepository {
   @override
-  Future<NetworkResponse> addInfo(WorkExperience personalInfo) async {
+  Future<NetworkResponse> addInfo(WorkExperience workExperience) async {
     final response = await http.post(
       Uri.parse(url),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
-      body: jsonEncode(personalInfo.toMap()),
+      body: jsonEncode(workExperience.toMap()),
     );
     NetworkResponse resulte = NetworkResponse();
     if (response.statusCode == 200) {
