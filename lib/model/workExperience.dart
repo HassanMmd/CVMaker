@@ -1,25 +1,44 @@
-class WorkExperience {
-  String from;
-  String to;
-  String field;
-  String place;
-  String companyName;
-  //describtion
+import 'package:flutter/rendering.dart';
 
-  WorkExperience(this.from, this.to, this.field, this.place, this.companyName);
+class WorkExperience {
+  String? id;
+  String role;
+  String company;
+  bool? freelance;
+  bool? remote;
+  String start_date;
+  String end_date;
+  String? details;
+  bool current;
+
+  WorkExperience( this.role, this.company, this.freelance, this.remote,
+      this.start_date, this.end_date, this.details, this.current,{this.id});
 
   Map<String, dynamic> toMap() {
     return {
-      'from': from,
-      'to': to,
-      'field': field,
-      'place': place,
-      'companyName': companyName,
+      'id': id,
+      'role': role,
+      'company': company,
+      'freelance': freelance,
+      'remote': remote,
+      'start_date': start_date,
+      'end_date': end_date,
+      'details': details,
+      'current': current,
     };
   }
 
   factory WorkExperience.fromMap(Map<String, dynamic> map) {
     return WorkExperience(
-        map['from'], map['to'], map['field'], map['place'], map['companyName']);
+      map['role'],
+      map['company'],
+      map['freelance'],
+      map['remote'],
+      map['start_date'],
+      map['end_date'],
+      map['details'],
+      map['current'],
+      id: map['id'],
+    );
   }
 }

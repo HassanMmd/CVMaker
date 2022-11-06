@@ -1,21 +1,30 @@
 import 'dart:convert';
 
+import 'package:cvmaker/clientInterceptor.dart';
 import 'package:cvmaker/const.dart';
 import 'package:cvmaker/model/workExperience.dart';
 import 'package:cvmaker/repository/workExperienceRepository.dart';
 import 'package:http/http.dart' as http;
 import 'package:cvmaker/networkResopnse.dart';
+import 'package:http/http.dart';
+import 'package:http_interceptor/http/intercepted_client.dart';
 
-class WorkExperienceRepositoryImpl implements WorkExperienceRepository {
+class WorkExperienceRepositoryImpl extends WorkExperienceRepository {
+
+
   @override
-  Future<NetworkResponse> addInfo(WorkExperience workExperience) async {
+  Future<NetworkResponse<void>> addInfo(
+      WorkExperience workExperience, dynamic idToken) async {
     final response = await http.post(
-      Uri.parse(url),
+      Uri.parse(
+          'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/experience'),
       headers: <String, String>{
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $idToken',
       },
       body: jsonEncode(workExperience.toMap()),
     );
+    print(response.statusCode);
     NetworkResponse resulte = NetworkResponse();
     if (response.statusCode == 200) {
       resulte.success = true;
@@ -51,9 +60,12 @@ class WorkExperienceRepositoryImpl implements WorkExperienceRepository {
   }
 
   @override
-  Future<NetworkResponse> getInfo() async {
-    final response = await http.get(Uri.parse(url));
-    NetworkResponse resulte = NetworkResponse();
+  Future<NetworkResponse<List<WorkExperience>>> getInfo() async {
+    final response = await client.get(
+      Uri.parse(
+          'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/experience'),
+    );
+    NetworkResponse<List<WorkExperience>> resulte = NetworkResponse();
     if (response.statusCode == 200) {
       List data = jsonDecode(response.body);
       resulte.success = true;

@@ -1,6 +1,6 @@
-class NetworkResponse {
-  bool? success;
-  dynamic data;
+class NetworkResponse<T> {
+  bool success=false;
+  T ? data;
   String? error;
 
 

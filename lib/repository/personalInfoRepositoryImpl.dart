@@ -6,7 +6,10 @@ import 'package:cvmaker/repository/personalInfoRepository.dart';
 import 'package:cvmaker/networkResopnse.dart';
 import 'package:http/http.dart' as http;
 
-class PersonalInfoRepositoryImpl implements PersonalInfoRepository {
+class PersonalInfoRepositoryImpl extends PersonalInfoRepository {
+
+
+
   @override
   Future<NetworkResponse> addInfo(PersonalInfo personalInfo) async {
     final response = await http.post(
@@ -52,6 +55,7 @@ class PersonalInfoRepositoryImpl implements PersonalInfoRepository {
 
   @override
   Future<NetworkResponse> getInfo() async {
+    var id = authenticator.getIDToken();
     final response = await http.get(Uri.parse(url));
     NetworkResponse result = NetworkResponse();
     if (response.statusCode == 200) {

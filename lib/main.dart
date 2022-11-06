@@ -1,8 +1,15 @@
+import 'package:cvmaker/screens/addworkExperience.dart';
+import 'package:cvmaker/screens/workExperienceInfo.dart';
+import 'package:cvmaker/screens/workExperienceList.dart';
+import 'package:cvmaker/viewmodel/workExperienceViewModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() async{
+import 'model/workExperience.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -14,21 +21,31 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<WorkExperienceViewModel>(create: (_) {
+          var model = WorkExperienceViewModel();
+          model.getWorkExperience();
+          return model;
+        }),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          appBarTheme: const AppBarTheme(color: Color(0XFF343C39)),
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: Colors.blue,
+        ),
+        home: WorkExperienceList(),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -53,7 +70,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _auth = FirebaseAuth.instance;
-
+  var id;
   @override
   // void initState() async {
   //   try{
@@ -65,13 +82,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int _counter = 0;
 
-  void _incrementCounter() async{
-    final userCredential = await _auth.signInAnonymously();
-    print('user $userCredential');
-    final id =await _auth.currentUser!.getIdToken();
+  void _incrementCounter() async {
+    // final userCredential = await _auth.signInAnonymously();
+    // print('user $userCredential');
+    // id = await _auth.currentUser!.getIdToken();
+    // Navigator.push(context,
+    //     MaterialPageRoute(builder: (context) => WorkExperienceList(id)));
+
     print('id $id');
     setState(() {
-
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
@@ -83,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var workExperience = Provider.of<WorkExperienceViewModel>(context);
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -122,6 +142,14 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            ElevatedButton(
+                onPressed: () {
+                  // workExperience.addInfo(
+                  //     WorkExperience('id', 'role', 'company', true, true,
+                  //         'start_date', 'end_date', 'details', false),
+                  //     id);
+                },
+                child: Text('Add')),
           ],
         ),
       ),
