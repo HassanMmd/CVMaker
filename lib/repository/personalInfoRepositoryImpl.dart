@@ -55,7 +55,6 @@ class PersonalInfoRepositoryImpl extends PersonalInfoRepository {
 
   @override
   Future<NetworkResponse> getInfo() async {
-    var id = authenticator.getIDToken();
     final response = await http.get(Uri.parse(url));
     NetworkResponse result = NetworkResponse();
     if (response.statusCode == 200) {

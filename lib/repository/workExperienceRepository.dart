@@ -8,7 +8,7 @@ import '../networkResopnse.dart';
 abstract class WorkExperienceRepository extends Repository{
 
 
-  Future<NetworkResponse> addInfo(WorkExperience workExperience,dynamic idToken);
+  Future<NetworkResponse> addInfo(WorkExperience workExperience);
 
   Future<NetworkResponse<List<WorkExperience>>> getInfo();
 

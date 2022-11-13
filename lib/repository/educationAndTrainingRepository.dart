@@ -1,11 +1,15 @@
 import 'package:cvmaker/model/educationAndTraining.dart';
+import 'package:cvmaker/model/personalInfo.dart';
+import 'package:cvmaker/repository/repository.dart';
 
 import '../networkResopnse.dart';
 
-abstract class EducationAndTrainingRepository {
-  Future<NetworkResponse> addInfo(EducationAndTraining personalInfo);
+abstract class EducationAndTrainingRepository extends Repository{
 
-  Future<NetworkResponse> getInfo();
+
+  Future<NetworkResponse> addInfo(EducationAndTraining educationAndTraining);
+
+  Future<NetworkResponse<List<EducationAndTraining>>> getInfo();
 
   Future<NetworkResponse> deleteInfo(int id);
 

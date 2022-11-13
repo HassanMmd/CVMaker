@@ -2,20 +2,19 @@ import 'dart:convert';
 
 import 'package:cvmaker/const.dart';
 import 'package:cvmaker/model/educationAndTraining.dart';
+import 'package:cvmaker/model/personalInfo.dart';
 import 'package:cvmaker/repository/educationAndTrainingRepository.dart';
 import 'package:http/http.dart' as http;
 import '../networkResopnse.dart';
 
 class EducationAndTrainingRepositoryImpl
-    implements EducationAndTrainingRepository {
+    extends EducationAndTrainingRepository {
   @override
   Future<NetworkResponse> addInfo(
       EducationAndTraining educationAndTraining) async {
-    final response = await http.post(
-      Uri.parse(url),
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-      },
+    final response = await client.post(
+      Uri.parse(
+          'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/experience'),
       body: jsonEncode(educationAndTraining.toMap()),
     );
     NetworkResponse result = NetworkResponse();
@@ -53,9 +52,10 @@ class EducationAndTrainingRepositoryImpl
   }
 
   @override
-  Future<NetworkResponse> getInfo() async {
-    final response = await http.get(Uri.parse(url));
-    NetworkResponse result = NetworkResponse();
+  Future<NetworkResponse<List<EducationAndTraining>>> getInfo() async {
+    final response = await client.get(Uri.parse(
+        'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/experience'));
+    NetworkResponse<List<EducationAndTraining>> result = NetworkResponse();
     if (response.statusCode == 200) {
       List data = jsonDecode(response.body);
       result.success = true;

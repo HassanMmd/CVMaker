@@ -1,18 +1,16 @@
-import 'package:cvmaker/repository/workExperienceRepositoryImpl.dart';
+import 'package:cvmaker/model/educationAndTraining.dart';
+import 'package:cvmaker/networkResopnse.dart';
+import 'package:cvmaker/repository/educationAndTrainingRepositoryImpl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../model/workExperience.dart';
-import '../networkResopnse.dart';
-
 enum Status { IDLE, SUCCESS, ERROR, LOADING }
 
-class WorkExperienceViewModel extends ChangeNotifier {
+class EducationAndTrainingViewModel extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
-
   Status status = Status.IDLE;
-  List<WorkExperience> workExperience = [];
-  var workExperienceImpl = WorkExperienceRepositoryImpl();
+  List<EducationAndTraining> educationAndTraining = [];
+  var educationAndTrainingImpl = EducationAndTrainingRepositoryImpl();
   NetworkResponse? response;
 
   Future<NetworkResponse> deleteInfo(int id) async {
@@ -23,27 +21,26 @@ class WorkExperienceViewModel extends ChangeNotifier {
     return editInfo();
   }
 
-  void getWorkExperience() async {
+  void getEducationAndTraining() async {
     status = Status.LOADING;
     notifyListeners();
-    var response = await workExperienceImpl.getInfo();
+    var response = await educationAndTrainingImpl.getInfo();
     if (response.success) {
       status = Status.SUCCESS;
-      print(response.data);
-      workExperience = response.data ?? [];
+      educationAndTraining = response.data ?? [];
     } else {
       status = Status.ERROR;
     }
     notifyListeners();
   }
 
-  Future<void> addWorkExperience(WorkExperience workExperience) async {
+  Future<void> addEducationAndTraining() async {
     status = Status.LOADING;
     notifyListeners();
-    var response = await workExperienceImpl.addInfo(workExperience);
+    var response = await educationAndTrainingImpl.getInfo();
     if (response.success) {
       status = Status.SUCCESS;
-      getWorkExperience();
+      getEducationAndTraining();
     } else {
       status = Status.ERROR;
     }

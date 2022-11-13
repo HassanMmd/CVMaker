@@ -14,14 +14,11 @@ class WorkExperienceRepositoryImpl extends WorkExperienceRepository {
 
   @override
   Future<NetworkResponse<void>> addInfo(
-      WorkExperience workExperience, dynamic idToken) async {
-    final response = await http.post(
+      WorkExperience workExperience) async {
+    final response = await client.post(
       Uri.parse(
           'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/experience'),
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $idToken',
-      },
+
       body: jsonEncode(workExperience.toMap()),
     );
     print(response.statusCode);
