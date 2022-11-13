@@ -1,21 +1,21 @@
-import 'dart:ui';
-import 'package:cvmaker/model/workExperience.dart';
-import 'package:cvmaker/networkResopnse.dart';
-import 'package:cvmaker/viewmodel/workExperienceViewModel.dart';
+import 'package:cvmaker/model/educationAndTraining.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class WorkExperienceScreen extends StatefulWidget {
+import '../networkResopnse.dart';
+import '../viewmodel/educationAndTrainingViewModel.dart';
 
+class AddEducation extends StatefulWidget {
+  const AddEducation({Key? key}) : super(key: key);
 
   @override
-  State<WorkExperienceScreen> createState() => _WorkExperienceScreenState();
+  State<AddEducation> createState() => _AddEducationState();
 }
 
-class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
+class _AddEducationState extends State<AddEducation> {
   TextEditingController dateInputStartDate = TextEditingController();
   TextEditingController dateInputEndDate = TextEditingController();
 
@@ -26,30 +26,22 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
     super.initState();
   }
 
-  String? role;
-  String? company;
+  String? name;
+  String? school;
   String? start_date;
   String? end_date;
-  bool current = true;
-  String? details;
-
+  String? country;
 
   NetworkResponse networkResponse = NetworkResponse();
 
-  void onChanged(bool? vvv) {
-    setState(() {
-      current = vvv!;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    var workExperience = context.watch<WorkExperienceViewModel>();
+    var education = context.watch<EducationAndTrainingViewModel>();
 
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Add Experience',
+            'Add Education',
             style: TextStyle(color: Colors.white),
           ),
           centerTitle: true,
@@ -69,10 +61,10 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                     child: TextField(
                       // textAlign: TextAlign.center,
                       onChanged: (value) {
-                        role = value;
+                        name = value;
                       },
                       decoration: InputDecoration(
-                        hintText: 'Role',
+                        hintText: 'Name',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -109,10 +101,10 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                     child: TextField(
                       // textAlign: TextAlign.center,
                       onChanged: (value) {
-                        company = value;
+                        school = value;
                       },
                       decoration: InputDecoration(
-                        hintText: 'Company',
+                        hintText: 'School',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -208,17 +200,6 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                   SizedBox(
                     height: 10.0,
                   ),
-                  Row(children: [
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Checkbox(
-                      value: current,
-                      onChanged: onChanged,
-                      fillColor: MaterialStateProperty.all(Colors.green),
-                    ),
-                    Text('This is my current job')
-                  ]),
                   SizedBox(
                     height: 50,
                     width: 350,
@@ -285,18 +266,17 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                     height: 10.0,
                   ),
                   SizedBox(
-                    height: 250,
+                    height: 50,
                     width: 350,
                     child: TextField(
                       textAlign: TextAlign.left,
                       textAlignVertical: TextAlignVertical.top,
-                      maxLines: 10,
                       // textAlign: TextAlign.center,
                       onChanged: (value) {
-                        details = value;
+                        country = value;
                       },
                       decoration: InputDecoration(
-                        hintText: 'Details',
+                        hintText: 'Country',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -324,44 +304,48 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                       ),
                     ),
                   ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 30.0,
-                      ),
-                      ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Color(0XFF568ABB)),
-                        ),
-                        onPressed: () async {
-                          await workExperience.addWorkExperience(
-                            WorkExperience(role!, company!, true, false,
-                                start_date!, end_date!, details!, current),
-                          );
-                          Navigator.pop(context);
-                        },
-                        child: Text('Add'),
-                      ),
-                      SizedBox(
-                        width: 200.0,
-                      ),
-                      ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Color(0XFFF22C2C)),
+                  Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // SizedBox(
+                        //   width: 30.0,
+                        // ),
+                        Expanded(
+                          flex: 2,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Color(0XFF568ABB)),
+                            ),
+                            onPressed: () async {
+                              await education.addEducationAndTraining(
+                                  EducationAndTraining(name!, school!,
+                                      country, start_date, end_date));
+                              Navigator.pop(context);
+                            },
+                            child: Text('Add'),
                           ),
-                          onPressed: () {
-                            print(current);
-                            Navigator.pop(context);
-                          },
-                          child: Text('Cancel'))
-                    ],
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Color(0XFFF22C2C)),
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text('Cancel')),
+                        )
+                      ],
+                    ),
                   ),
-                  if (workExperience.status == Status.LOADING)
+                  if (education.status == Status.LOADING)
                     CircularProgressIndicator(),
-                  if (workExperience.status == Status.ERROR)
-                    Text('Bad connetion'),
+                  if (education.status == Status.ERROR) Text('Bad connetion'),
                 ],
               ),
             ),

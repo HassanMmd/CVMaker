@@ -1,6 +1,8 @@
+import 'package:cvmaker/screens/addEducation.dart';
 import 'package:cvmaker/screens/addworkExperience.dart';
 import 'package:cvmaker/screens/workExperienceInfo.dart';
 import 'package:cvmaker/screens/workExperienceList.dart';
+import 'package:cvmaker/viewmodel/educationAndTrainingViewModel.dart';
 import 'package:cvmaker/viewmodel/workExperienceViewModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,6 +30,11 @@ class MyApp extends StatelessWidget {
           model.getWorkExperience();
           return model;
         }),
+        ChangeNotifierProvider<EducationAndTrainingViewModel>(create: (_) {
+          var model = EducationAndTrainingViewModel();
+          model.getEducationAndTraining();
+          return model;
+        }),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -44,7 +51,7 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
         ),
-        home: WorkExperienceList(),
+        home: AddEducation(),
       ),
     );
   }

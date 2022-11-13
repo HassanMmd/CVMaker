@@ -14,7 +14,7 @@ class EducationAndTrainingRepositoryImpl
       EducationAndTraining educationAndTraining) async {
     final response = await client.post(
       Uri.parse(
-          'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/experience'),
+          'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/education'),
       body: jsonEncode(educationAndTraining.toMap()),
     );
     NetworkResponse result = NetworkResponse();
@@ -54,7 +54,7 @@ class EducationAndTrainingRepositoryImpl
   @override
   Future<NetworkResponse<List<EducationAndTraining>>> getInfo() async {
     final response = await client.get(Uri.parse(
-        'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/experience'));
+        'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/education'));
     NetworkResponse<List<EducationAndTraining>> result = NetworkResponse();
     if (response.statusCode == 200) {
       List data = jsonDecode(response.body);

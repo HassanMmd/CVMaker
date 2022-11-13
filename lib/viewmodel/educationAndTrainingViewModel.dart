@@ -34,7 +34,7 @@ class EducationAndTrainingViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addEducationAndTraining() async {
+  Future<void> addEducationAndTraining(EducationAndTraining educationAndTraining) async {
     status = Status.LOADING;
     notifyListeners();
     var response = await educationAndTrainingImpl.getInfo();
