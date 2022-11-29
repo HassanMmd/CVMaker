@@ -7,14 +7,12 @@ import 'package:http/http.dart' as http;
 
 import '../networkResopnse.dart';
 
-class LanguageSkillsRepositoryImpl implements LanguageSkillsRepository {
+class LanguageSkillsRepositoryImpl extends LanguageSkillsRepository {
   @override
   Future<NetworkResponse> addInfo(LanguageSkills languageSkills) async {
     final response = await http.post(
-      Uri.parse(url),
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-      },
+      Uri.parse(
+          'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/language'),
       body: jsonEncode(languageSkills.toMap()),
     );
     NetworkResponse result = NetworkResponse();
@@ -52,9 +50,10 @@ class LanguageSkillsRepositoryImpl implements LanguageSkillsRepository {
   }
 
   @override
-  Future<NetworkResponse> getInfo() async {
-    final response = await http.get(Uri.parse(url));
-    NetworkResponse result = NetworkResponse();
+  Future<NetworkResponse<List<LanguageSkills>>> getInfo() async {
+    final response = await http.get(Uri.parse(
+        'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/language'));
+    NetworkResponse<List<LanguageSkills>> result = NetworkResponse();
     if (response.statusCode == 200) {
       List data = jsonDecode(response.body);
       result.success = true;

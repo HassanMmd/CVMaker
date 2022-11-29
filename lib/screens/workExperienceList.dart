@@ -42,10 +42,6 @@ class _WorkExperienceListState extends State<WorkExperienceList> {
               ),
             ),
           ),
-
-          // SizedBox(
-          //   width: 10.0,
-          // ),
         ],
         title: Text('Work Experience'),
       ),
@@ -63,11 +59,6 @@ class _WorkExperienceListState extends State<WorkExperienceList> {
                       )
                       .toList(),
                 ),
-                // TextButton(
-                //     onPressed: () {
-                //       x.getWorkExperience();
-                //     },
-                //     child: Text('dfs')),
                 SizedBox(
                   height: 10.0,
                 )
@@ -75,29 +66,7 @@ class _WorkExperienceListState extends State<WorkExperienceList> {
             );
           },
         ),
-        // TextButton(
-        //   onPressed: () {
-        //     workExperience.getWorkExperience(widget.id);
-        //   },
-        //   child: Text('data'),
-        // ),
-        // if (workExperience.status == Status.LOADING)
-        //   CircularProgressIndicator(),
-        // if (workExperience.status == Status.ERROR) Text('Error loading'),
-        // if (workExperience.status == Status.SUCCESS)
-        //   Column(
-        //     children:
-        //         workExperience.workExperience.map((e) => Text(e.role)).toList(),
-        //   ),
       ]),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.of(context).push(
-      //         MaterialPageRoute(builder: (context) => WorkExperienceScreen()));
-      //   },
-      //   backgroundColor: Colors.green,
-      //   child: Icon(Icons.add),
-      // ),
     );
   }
 }

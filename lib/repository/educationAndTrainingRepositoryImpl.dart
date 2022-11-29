@@ -19,6 +19,7 @@ class EducationAndTrainingRepositoryImpl
     );
     NetworkResponse result = NetworkResponse();
     if (response.statusCode == 200) {
+      print(response.statusCode);
       result.success = true;
       return result;
     } else {
@@ -57,6 +58,7 @@ class EducationAndTrainingRepositoryImpl
         'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/education'));
     NetworkResponse<List<EducationAndTraining>> result = NetworkResponse();
     if (response.statusCode == 200) {
+      print(response.statusCode);
       List data = jsonDecode(response.body);
       result.success = true;
       result.data = data.map((e) => EducationAndTraining.fromMap(e)).toList();

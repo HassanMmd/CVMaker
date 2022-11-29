@@ -64,7 +64,7 @@ class _AddEducationState extends State<AddEducation> {
                         name = value;
                       },
                       decoration: InputDecoration(
-                        hintText: 'Name',
+                        hintText: 'Name*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -104,7 +104,7 @@ class _AddEducationState extends State<AddEducation> {
                         school = value;
                       },
                       decoration: InputDecoration(
-                        hintText: 'School',
+                        hintText: 'School*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -169,7 +169,7 @@ class _AddEducationState extends State<AddEducation> {
                       },
                       decoration: InputDecoration(
                         icon: Icon(Icons.calendar_today),
-                        hintText: 'Start date',
+                        hintText: 'Start date*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -234,7 +234,7 @@ class _AddEducationState extends State<AddEducation> {
                       },
                       decoration: InputDecoration(
                         icon: Icon(Icons.calendar_today),
-                        hintText: 'End date',
+                        hintText: 'End date*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -276,7 +276,7 @@ class _AddEducationState extends State<AddEducation> {
                         country = value;
                       },
                       decoration: InputDecoration(
-                        hintText: 'Country',
+                        hintText: 'Country*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -320,10 +320,41 @@ class _AddEducationState extends State<AddEducation> {
                                   MaterialStateProperty.all(Color(0XFF568ABB)),
                             ),
                             onPressed: () async {
-                              await education.addEducationAndTraining(
-                                  EducationAndTraining(name!, school!,
-                                      country, start_date, end_date));
-                              Navigator.pop(context);
+                              if (name == null ||
+                                  school == null ||
+                                  start_date == null ||
+                                  end_date == null ||
+                                  country == null) {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return SizedBox(
+                                        height: 200.0,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            const Text(
+                                              'Please fill all the fields',
+                                              style: TextStyle(
+                                                  fontSize: 20.0,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            const SizedBox(height: 25.0),
+                                            ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('Ok'))
+                                          ],
+                                        ),
+                                      );
+                                    });
+                              } else {
+                                await education.addEducationAndTraining(
+                                    EducationAndTraining(name!, school!,
+                                        country, start_date, end_date));
+                                Navigator.pop(context);
+                              }
                             },
                             child: Text('Add'),
                           ),
@@ -332,8 +363,8 @@ class _AddEducationState extends State<AddEducation> {
                           flex: 2,
                           child: ElevatedButton(
                               style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Color(0XFFF22C2C)),
+                                backgroundColor: MaterialStateProperty.all(
+                                    Color(0XFFF22C2C)),
                               ),
                               onPressed: () {
                                 Navigator.pop(context);

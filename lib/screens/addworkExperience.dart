@@ -9,8 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class WorkExperienceScreen extends StatefulWidget {
-
-
   @override
   State<WorkExperienceScreen> createState() => _WorkExperienceScreenState();
 }
@@ -32,7 +30,6 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
   String? end_date;
   bool current = true;
   String? details;
-
 
   NetworkResponse networkResponse = NetworkResponse();
 
@@ -72,7 +69,7 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                         role = value;
                       },
                       decoration: InputDecoration(
-                        hintText: 'Role',
+                        hintText: 'Role*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -112,7 +109,7 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                         company = value;
                       },
                       decoration: InputDecoration(
-                        hintText: 'Company',
+                        hintText: 'Company*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -177,7 +174,7 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                       },
                       decoration: InputDecoration(
                         icon: Icon(Icons.calendar_today),
-                        hintText: 'Start date',
+                        hintText: 'Start date*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -253,7 +250,7 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                       },
                       decoration: InputDecoration(
                         icon: Icon(Icons.calendar_today),
-                        hintText: 'End date',
+                        hintText: 'End date*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -296,7 +293,7 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                         details = value;
                       },
                       decoration: InputDecoration(
-                        hintText: 'Details',
+                        hintText: 'Details*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -335,11 +332,42 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                               MaterialStateProperty.all(Color(0XFF568ABB)),
                         ),
                         onPressed: () async {
-                          await workExperience.addWorkExperience(
-                            WorkExperience(role!, company!, true, false,
-                                start_date!, end_date!, details!, current),
-                          );
-                          Navigator.pop(context);
+                          if (role == null ||
+                              company == null ||
+                              start_date == null ||
+                              end_date == null ||
+                              details == null) {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SizedBox(
+                                    height: 200.0,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          'Please fill all the fields',
+                                          style: TextStyle(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(height: 25.0),
+                                        ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text('Ok'))
+                                      ],
+                                    ),
+                                  );
+                                });
+                          } else {
+                            await workExperience.addWorkExperience(
+                              WorkExperience(role!, company!, true, false,
+                                  start_date!, end_date!, details!, current),
+                            );
+                            Navigator.pop(context);
+                          }
                         },
                         child: Text('Add'),
                       ),

@@ -1,17 +1,19 @@
 class LanguageSkills {
-  String language;
-  String level;
+  String? id;
+  String name;
+  int level;
 
-  LanguageSkills(this.language, this.level);
+  LanguageSkills(this.name, this.level,{this.id});
 
   Map<String, dynamic> toMap() {
     return {
-      'language': language,
+      'id':id,
+      'language': name,
       'level': level,
     };
   }
 
   factory LanguageSkills.fromMap(Map<String, dynamic> map) {
-    return LanguageSkills(map['language'], map['level']);
+    return LanguageSkills(map['language'], map['level'],id: map['id']);
   }
 }

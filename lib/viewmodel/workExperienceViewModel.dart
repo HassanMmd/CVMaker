@@ -8,7 +8,7 @@ import '../networkResopnse.dart';
 enum Status { IDLE, SUCCESS, ERROR, LOADING }
 
 class WorkExperienceViewModel extends ChangeNotifier {
-  final _auth = FirebaseAuth.instance;
+  // final _auth = FirebaseAuth.instance;
 
   Status status = Status.IDLE;
   List<WorkExperience> workExperience = [];

@@ -40,7 +40,7 @@ class _EducationListState extends State<EducationList> {
           ),
 
         ],
-        title: Text('Work Experience'),
+        title: Text('Education and Training'),
       ),
       body: ListView(children: [
         Consumer<EducationAndTrainingViewModel>(
