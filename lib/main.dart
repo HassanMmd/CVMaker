@@ -4,6 +4,7 @@ import 'package:cvmaker/screens/educationList.dart';
 import 'package:cvmaker/screens/workExperienceInfo.dart';
 import 'package:cvmaker/screens/workExperienceList.dart';
 import 'package:cvmaker/viewmodel/educationAndTrainingViewModel.dart';
+import 'package:cvmaker/viewmodel/languageSkillsViewModel.dart';
 import 'package:cvmaker/viewmodel/makeYourCV.dart';
 import 'package:cvmaker/viewmodel/workExperienceViewModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,6 +36,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<EducationAndTrainingViewModel>(create: (_) {
           var model = EducationAndTrainingViewModel();
           model.getEducationAndTraining();
+          return model;
+        }),
+        ChangeNotifierProvider<LanguageSkillsViewModel>(create: (_) {
+          var model = LanguageSkillsViewModel();
+          model.getLanguageSkills();
           return model;
         }),
       ],

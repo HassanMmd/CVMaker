@@ -1,3 +1,4 @@
+import 'package:cvmaker/screens/addLanguageSkills.dart';
 import 'package:cvmaker/screens/educationList.dart';
 import 'package:cvmaker/screens/workExperienceList.dart';
 import 'package:flutter/cupertino.dart';
@@ -49,7 +50,7 @@ class MakeYourCV extends StatelessWidget {
             TextButton.icon(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => WorkExperienceList()));
+                      builder: (context) => AddLanguageSkills()));
                 },
                 icon: const Icon(Icons.language),
                 label: const Text('Language Skills')),
