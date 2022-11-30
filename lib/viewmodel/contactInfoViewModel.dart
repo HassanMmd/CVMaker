@@ -21,7 +21,7 @@ class ContactInfoViewModel extends ChangeNotifier {
     return editInfo();
   }
 
-  void addContactInfo(ContactInfo contactInfo) async {
+  Future<void> addContactInfo(ContactInfo contactInfo) async {
     status = Status.LOADING;
     notifyListeners();
     var response = await contactInfoImpl.addInfo(contactInfo);
