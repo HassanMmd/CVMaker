@@ -35,8 +35,7 @@ class _AddLanguageSkillsState extends State<AddLanguageSkills> {
         child: Center(
           child: Padding(
             padding: EdgeInsets.all(10.0),
-            child: Column(
-                children: [
+            child: Column(children: [
               SizedBox(
                 height: 50,
               ),
@@ -159,6 +158,7 @@ class _AddLanguageSkillsState extends State<AddLanguageSkills> {
                           print(level);
                           await language
                               .addLanguageSkills(LanguageSkills(name!, level));
+                          Navigator.pop(context);
                         }
                       },
                       child: Text('Add')),

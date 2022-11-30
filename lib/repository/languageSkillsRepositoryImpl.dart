@@ -10,12 +10,13 @@ import '../networkResopnse.dart';
 class LanguageSkillsRepositoryImpl extends LanguageSkillsRepository {
   @override
   Future<NetworkResponse> addInfo(LanguageSkills languageSkills) async {
-    final response = await http.post(
+    final response = await client.post(
       Uri.parse(
           'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/language'),
       body: jsonEncode(languageSkills.toMap()),
     );
     NetworkResponse result = NetworkResponse();
+    print(response.statusCode);
     if (response.statusCode == 200) {
       result.success = true;
       return result;
@@ -29,10 +30,10 @@ class LanguageSkillsRepositoryImpl extends LanguageSkillsRepository {
   @override
   Future<NetworkResponse> deleteInfo(int id) async {
     final response =
-        await http.delete(Uri.parse(url), headers: <String, String>{
+        await client.delete(Uri.parse(url), headers: <String, String>{
       'Content-Type': 'application/json',
     });
-    NetworkResponse result = NetworkResponse();
+    NetworkResponse<List<LanguageSkills>> result = NetworkResponse();
     if (response.statusCode == 200) {
       result.success = true;
       return result;
@@ -51,7 +52,7 @@ class LanguageSkillsRepositoryImpl extends LanguageSkillsRepository {
 
   @override
   Future<NetworkResponse<List<LanguageSkills>>> getInfo() async {
-    final response = await http.get(Uri.parse(
+    final response = await client.get(Uri.parse(
         'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/language'));
     NetworkResponse<List<LanguageSkills>> result = NetworkResponse();
     if (response.statusCode == 200) {
