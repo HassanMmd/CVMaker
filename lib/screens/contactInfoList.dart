@@ -1,3 +1,5 @@
+import 'package:cvmaker/screens/addContactInfo.dart';
+import 'package:cvmaker/screens/contactInfo_Info.dart';
 import 'package:cvmaker/viewmodel/contactInfoViewModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ class _ContactInfoListState extends State<ContactInfoList> {
                 ),
                 onPressed: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => AddLanguageSkills()));
+                      MaterialPageRoute(builder: (context) => AddContactInfo()));
                 },
                 child: const Icon(
                   Icons.add,
@@ -50,7 +52,7 @@ class _ContactInfoListState extends State<ContactInfoList> {
                 Column(
                   children: x.contactInfo
                       .map(
-                        (e) => LanguageInfo(e),
+                        (e) => ContactInfo_Info(e),
                   )
                       .toList(),
                 ),
