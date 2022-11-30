@@ -4,6 +4,7 @@ import 'package:cvmaker/repository/repository.dart';
 import '../networkResopnse.dart';
 
 abstract class LanguageSkillsRepository extends Repository{
+
   Future<NetworkResponse> addInfo(LanguageSkills languageSkills);
 
   Future<NetworkResponse<List<LanguageSkills>>> getInfo();
