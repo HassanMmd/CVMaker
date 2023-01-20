@@ -1,7 +1,6 @@
 import 'package:cvmaker/model/languageSkills.dart';
 import 'package:cvmaker/networkResopnse.dart';
 import 'package:cvmaker/repository/languageSkillsRepositoryImpl.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 
@@ -9,18 +8,35 @@ import 'package:flutter/cupertino.dart';
 enum Status { IDLE, SUCCESS, ERROR, LOADING }
 
 class LanguageSkillsViewModel extends ChangeNotifier{
- final _auth=FirebaseAuth.instance;
  Status status=Status.IDLE;
  List<LanguageSkills> languageSkills=[];
  var languageSkillsImpl = LanguageSkillsRepositoryImpl();
  NetworkResponse? response;
 
- Future<NetworkResponse> deleteInfo(int id) async {
-   return deleteInfo(id);
+ Future<void> deleteInfo(String id) async {
+   status = Status.LOADING;
+   notifyListeners();
+   var response = await languageSkillsImpl.deleteInfo(id);
+   if (response.success) {
+     status = Status.SUCCESS;
+     print(response.data);
+   } else {
+     status = Status.ERROR;
+   }
+   notifyListeners();
  }
 
- Future<NetworkResponse> editInfo() async {
-   return editInfo();
+ Future<void> editInfo(LanguageSkills languageSkills) async {
+   status = Status.LOADING;
+   notifyListeners();
+   var response = await languageSkillsImpl.editInfo(languageSkills);
+   if (response.success) {
+     status = Status.SUCCESS;
+     print(response.data);
+   } else {
+     status = Status.ERROR;
+   }
+   notifyListeners();
  }
 
  void getLanguageSkills() async{

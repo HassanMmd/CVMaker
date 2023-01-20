@@ -1,77 +1,77 @@
 import 'dart:convert';
-
-import 'package:cvmaker/clientInterceptor.dart';
-import 'package:cvmaker/const.dart';
 import 'package:cvmaker/model/workExperience.dart';
 import 'package:cvmaker/repository/workExperienceRepository.dart';
-import 'package:http/http.dart' as http;
 import 'package:cvmaker/networkResopnse.dart';
-import 'package:http/http.dart';
-import 'package:http_interceptor/http/intercepted_client.dart';
+import '../const.dart';
 
 class WorkExperienceRepositoryImpl extends WorkExperienceRepository {
-
-
   @override
-  Future<NetworkResponse<void>> addInfo(
-      WorkExperience workExperience) async {
+  Future<NetworkResponse<void>> addInfo(WorkExperience workExperience) async {
     final response = await client.post(
-      Uri.parse(
-          'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/experience'),
-
+      Uri.parse('$baseUrl/experience'),
       body: jsonEncode(workExperience.toMap()),
     );
     print(response.statusCode);
-    NetworkResponse resulte = NetworkResponse();
+    NetworkResponse result = NetworkResponse();
     if (response.statusCode == 200) {
-      resulte.success = true;
-      return resulte;
+      result.success = true;
+      return result;
     } else {
-      resulte.success = false;
-      resulte.error = 'No connection';
-      return resulte;
+      result.success = false;
+      result.error = 'No connection';
+      return result;
     }
   }
 
   @override
-  Future<NetworkResponse> deleteInfo(int id) async {
-    final response =
-        await http.delete(Uri.parse(url), headers: <String, String>{
-      'Content-Type': 'application/json',
-    });
-    NetworkResponse resulte = NetworkResponse();
+  Future<NetworkResponse> deleteInfo(String id) async {
+    final response = await client.delete(
+      Uri.parse('$baseUrl/experience/$id'),
+    );
+    NetworkResponse result = NetworkResponse();
     if (response.statusCode == 200) {
-      resulte.success = true;
-      return resulte;
+      result.success = true;
+      return result;
     } else {
-      resulte.success = false;
-      resulte.error = 'No Connection';
-      return resulte;
+      result.success = false;
+      result.error = 'No Connection';
+      return result;
     }
   }
 
   @override
-  Future<NetworkResponse> editInfo() {
-    // TODO: implement editInfo
-    throw UnimplementedError();
+  Future<NetworkResponse> editInfo(WorkExperience workExperience) async {
+    final response = await client.put(
+        Uri.parse('$baseUrl/experience/${workExperience.id}'),
+        body: jsonEncode(workExperience.toMap()));
+    print(response.statusCode);
+    NetworkResponse result = NetworkResponse();
+    if (response.statusCode == 200) {
+      result.success = true;
+      return result;
+    } else {
+      result.success = false;
+      result.error = 'No connection';
+      return result;
+    }
   }
 
   @override
   Future<NetworkResponse<List<WorkExperience>>> getInfo() async {
     final response = await client.get(
-      Uri.parse(
-          'https://us-central1-cv-builder-327dd.cloudfunctions.net/api/experience'),
+      Uri.parse('$baseUrl/experience'),
     );
-    NetworkResponse<List<WorkExperience>> resulte = NetworkResponse();
+    NetworkResponse<List<WorkExperience>> result = NetworkResponse();
     if (response.statusCode == 200) {
+      print(response.body);
       List data = jsonDecode(response.body);
-      resulte.success = true;
-      resulte.data = data.map((e) => WorkExperience.fromMap(e)).toList();
-      return resulte;
+      result.success = true;
+      result.data = data.map((e) => WorkExperience.fromMap(e)).toList();
+      return result;
     } else {
-      resulte.success = false;
-      resulte.error = 'No connection';
-      return resulte;
+      result.success = false;
+      result.error = 'No connection';
+      return result;
     }
   }
 }

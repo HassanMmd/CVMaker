@@ -1,11 +1,7 @@
-import 'package:cvmaker/model/workExperience.dart';
-import 'package:cvmaker/networkResopnse.dart';
 import 'package:cvmaker/screens/addworkExperience.dart';
 import 'package:cvmaker/screens/workExperienceInfo.dart';
 import 'package:cvmaker/viewmodel/workExperienceViewModel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
 
 class WorkExperienceList extends StatefulWidget {
@@ -16,8 +12,6 @@ class WorkExperienceList extends StatefulWidget {
 class _WorkExperienceListState extends State<WorkExperienceList> {
   @override
   Widget build(BuildContext context) {
-    // var workExperience = context.watch<WorkExperienceViewModel>();
-    // workExperience.getWorkExperience(widget.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -25,10 +19,10 @@ class _WorkExperienceListState extends State<WorkExperienceList> {
           AspectRatio(
             aspectRatio: 2 / 2,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: TextButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Color(0XFF56BB6C)),
+                  backgroundColor: MaterialStateProperty.all(const Color(0XFF56BB6C)),
                 ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -43,15 +37,15 @@ class _WorkExperienceListState extends State<WorkExperienceList> {
             ),
           ),
         ],
-        title: Text('Work Experience'),
+        title: const Text('Work Experience'),
       ),
       body: ListView(children: [
         Consumer<WorkExperienceViewModel>(
           builder: (context, x, child) {
             return Column(
               children: [
-                if (x.status == Status.LOADING) CircularProgressIndicator(),
-                if (x.status == Status.ERROR) Text('Error loading'),
+                if (x.status == Status.LOADING) const CircularProgressIndicator(),
+                if (x.status == Status.ERROR) const Text('Error loading'),
                 Column(
                   children: x.workExperience
                       .map(
@@ -59,7 +53,7 @@ class _WorkExperienceListState extends State<WorkExperienceList> {
                       )
                       .toList(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 )
               ],

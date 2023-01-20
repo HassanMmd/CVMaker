@@ -9,9 +9,9 @@ abstract class LanguageSkillsRepository extends Repository{
 
   Future<NetworkResponse<List<LanguageSkills>>> getInfo();
 
-  Future<NetworkResponse> deleteInfo(int id);
+  Future<NetworkResponse> deleteInfo(String id);
 
-  Future<NetworkResponse> editInfo();
+  Future<NetworkResponse> editInfo(LanguageSkills languageSkills);
 }
 
 

@@ -6,9 +6,9 @@ import '../model/personalInfo.dart';
 abstract class PersonalInfoRepository extends Repository {
   Future<NetworkResponse> addInfo(PersonalInfo personalInfo);
 
-  Future<NetworkResponse> getInfo();
+  Future<NetworkResponse<PersonalInfo>> getInfo();
 
-  Future<NetworkResponse> deleteInfo(int id);
+  Future<NetworkResponse> deleteInfo(String id);
 
-  Future<NetworkResponse> editInfo();
+  Future<NetworkResponse> editInfo(PersonalInfo personalInfo);
 }

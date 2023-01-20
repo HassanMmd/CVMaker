@@ -1,20 +1,21 @@
-import 'package:cvmaker/model/contactInfo.dart';
-import 'package:cvmaker/networkResopnse.dart';
-import 'package:cvmaker/repository/contactInfoRepositoryImpl.dart';
+import 'package:cvmaker/model/personalInfo.dart';
+import 'package:cvmaker/repository/personalInfoRepositoryImpl.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../networkResopnse.dart';
 
 enum Status { IDLE, SUCCESS, ERROR, LOADING }
 
-class ContactInfoViewModel extends ChangeNotifier {
+class PersonalInfoViewModel extends ChangeNotifier {
   Status status = Status.IDLE;
-  List<ContactInfo> contactInfo = [];
-  var contactInfoImpl = ContactInfoRepositoryImpl();
+  PersonalInfo? personalInfo;
+  var personalInfoRepositoryImpl = PersonalInfoRepositoryImpl();
   NetworkResponse? response;
 
   Future<void> deleteInfo(String id) async {
     status = Status.LOADING;
     notifyListeners();
-    var response = await contactInfoImpl.deleteInfo(id);
+    var response = await personalInfoRepositoryImpl.deleteInfo(id);
     if (response.success) {
       status = Status.SUCCESS;
       print(response.data);
@@ -24,37 +25,10 @@ class ContactInfoViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  Future<void> addContactInfo(ContactInfo contactInfo) async {
+  Future<void> editInfo(PersonalInfo personalInfo) async {
     status = Status.LOADING;
     notifyListeners();
-    var response = await contactInfoImpl.addInfo(contactInfo);
-    if (response.success) {
-      status = Status.SUCCESS;
-      getContactInfo();
-    } else {
-      status = Status.ERROR;
-    }
-    notifyListeners();
-  }
-
-  Future<void> getContactInfo() async {
-    status = Status.LOADING;
-    notifyListeners();
-    var response = await contactInfoImpl.getInfo();
-    if (response.success) {
-      status = Status.SUCCESS;
-      contactInfo = response.data ?? [];
-    } else {
-      status = Status.ERROR;
-    }
-    notifyListeners();
-  }
-
-  Future<void> editInfo(ContactInfo contactInfo) async {
-    status = Status.LOADING;
-    notifyListeners();
-    var response = await contactInfoImpl.editInfo(contactInfo);
+    var response = await personalInfoRepositoryImpl.editInfo(personalInfo);
     if (response.success) {
       status = Status.SUCCESS;
       print(response.data);
@@ -64,4 +38,31 @@ class ContactInfoViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void getPersonalInfo() async {
+    status = Status.LOADING;
+    notifyListeners();
+    var response = await personalInfoRepositoryImpl.getInfo();
+    if (response.success) {
+      status = Status.SUCCESS;
+      print('response data  $response.data');
+      personalInfo =
+          response.data;
+    } else {
+      status = Status.ERROR;
+    }
+    notifyListeners();
+  }
+
+  Future<void> addPersonalInfo(PersonalInfo personalInfo) async {
+    status = Status.LOADING;
+    notifyListeners();
+    var response = await personalInfoRepositoryImpl.addInfo(personalInfo);
+    if (response.success) {
+      status = Status.SUCCESS;
+      getPersonalInfo();
+    } else {
+      status = Status.ERROR;
+    }
+    notifyListeners();
+  }
 }

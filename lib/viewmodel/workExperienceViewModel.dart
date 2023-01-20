@@ -1,29 +1,45 @@
 import 'package:cvmaker/repository/workExperienceRepositoryImpl.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-
 import '../model/workExperience.dart';
 import '../networkResopnse.dart';
 
 enum Status { IDLE, SUCCESS, ERROR, LOADING }
 
 class WorkExperienceViewModel extends ChangeNotifier {
-  // final _auth = FirebaseAuth.instance;
-
   Status status = Status.IDLE;
   List<WorkExperience> workExperience = [];
   var workExperienceImpl = WorkExperienceRepositoryImpl();
   NetworkResponse? response;
 
-  Future<NetworkResponse> deleteInfo(int id) async {
-    return deleteInfo(id);
+  Future<void> deleteInfo(String id) async {
+    status = Status.LOADING;
+    notifyListeners();
+    var response = await workExperienceImpl.deleteInfo(id);
+    if (response.success) {
+      status = Status.SUCCESS;
+      print(response.data);
+    } else {
+      status = Status.ERROR;
+    }
+    notifyListeners();
   }
 
-  Future<NetworkResponse> editInfo() async {
-    return editInfo();
+  Future<void> editInfo(WorkExperience workExperience) async {
+    status = Status.LOADING;
+    notifyListeners();
+    var response = await workExperienceImpl.editInfo(workExperience);
+    if (response.success) {
+      status = Status.SUCCESS;
+      print(response.data);
+    } else {
+      status = Status.ERROR;
+    }
+    notifyListeners();
   }
 
-  void getWorkExperience() async {
+
+
+  Future<void> getWorkExperience() async {
     status = Status.LOADING;
     notifyListeners();
     var response = await workExperienceImpl.getInfo();

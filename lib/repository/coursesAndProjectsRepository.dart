@@ -8,6 +8,6 @@ abstract class CoursesAndProjectsRepository {
   Future<NetworkResponse> getInfo();
 
   Future<NetworkResponse> deleteInfo(int id);
-  // new commit
+
   Future<NetworkResponse> editInfo();
 }

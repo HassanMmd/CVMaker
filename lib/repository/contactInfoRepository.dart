@@ -8,7 +8,7 @@ abstract class ContactInfoRepository extends Repository{
 
   Future<NetworkResponse<List<ContactInfo>>> getInfo();
 
-  Future<NetworkResponse> deleteInfo(int id);
+  Future<NetworkResponse> deleteInfo(String id);
 
-  Future<NetworkResponse> editInfo();
+  Future<NetworkResponse> editInfo(ContactInfo contactInfo);
 }

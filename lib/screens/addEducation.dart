@@ -1,10 +1,7 @@
 import 'package:cvmaker/model/educationAndTraining.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '../networkResopnse.dart';
 import '../viewmodel/educationAndTrainingViewModel.dart';
 
@@ -40,7 +37,7 @@ class _AddEducationState extends State<AddEducation> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Add Education',
             style: TextStyle(color: Colors.white),
           ),
@@ -49,10 +46,10 @@ class _AddEducationState extends State<AddEducation> {
         body: SingleChildScrollView(
           child: Center(
             child: Padding(
-              padding: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   SizedBox(
@@ -63,7 +60,7 @@ class _AddEducationState extends State<AddEducation> {
                       onChanged: (value) {
                         name = value;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Name*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
@@ -92,7 +89,7 @@ class _AddEducationState extends State<AddEducation> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
                   SizedBox(
@@ -103,7 +100,7 @@ class _AddEducationState extends State<AddEducation> {
                       onChanged: (value) {
                         school = value;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'School*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
@@ -132,7 +129,7 @@ class _AddEducationState extends State<AddEducation> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
                   SizedBox(
@@ -167,7 +164,7 @@ class _AddEducationState extends State<AddEducation> {
                       onChanged: (value) {
                         start_date = value;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         icon: Icon(Icons.calendar_today),
                         hintText: 'Start date*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
@@ -197,7 +194,7 @@ class _AddEducationState extends State<AddEducation> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
                   SizedBox(
@@ -232,7 +229,7 @@ class _AddEducationState extends State<AddEducation> {
                       onChanged: (value) {
                         end_date = value;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         icon: Icon(Icons.calendar_today),
                         hintText: 'End date*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
@@ -262,7 +259,7 @@ class _AddEducationState extends State<AddEducation> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
                   SizedBox(
@@ -275,7 +272,7 @@ class _AddEducationState extends State<AddEducation> {
                       onChanged: (value) {
                         country = value;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Country*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
@@ -305,78 +302,72 @@ class _AddEducationState extends State<AddEducation> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // SizedBox(
                         //   width: 30.0,
                         // ),
-                        Expanded(
-                          flex: 2,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Color(0XFF568ABB)),
-                            ),
-                            onPressed: () async {
-                              if (name == null ||
-                                  school == null ||
-                                  start_date == null ||
-                                  end_date == null ||
-                                  country == null) {
-                                showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return SizedBox(
-                                        height: 200.0,
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            const Text(
-                                              'Please fill all the fields',
-                                              style: TextStyle(
-                                                  fontSize: 20.0,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            const SizedBox(height: 25.0),
-                                            ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: const Text('Ok'))
-                                          ],
-                                        ),
-                                      );
-                                    });
-                              } else {
-                                await education.addEducationAndTraining(
-                                    EducationAndTraining(name!, school!,
-                                        country, start_date, end_date));
-                                Navigator.pop(context);
-                              }
-                            },
-                            child: Text('Add'),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(const Color(0XFF568ABB)),
                           ),
+                          onPressed: () async {
+                            if (name == null ||
+                                school == null ||
+                                start_date == null ||
+                                end_date == null ||
+                                country == null) {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return SizedBox(
+                                      height: 200.0,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            'Please fill all the fields',
+                                            style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          const SizedBox(height: 25.0),
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text('Ok'))
+                                        ],
+                                      ),
+                                    );
+                                  });
+                            } else {
+                              await education.addEducationAndTraining(
+                                  EducationAndTraining(name!, school!,
+                                      country, start_date, end_date));
+                              Navigator.pop(context);
+                            }
+                          },
+                          child: const Text('Add'),
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Color(0XFFF22C2C)),
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text('Cancel')),
-                        )
+                        ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  const Color(0XFFF22C2C)),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Cancel'))
                       ],
                     ),
                   ),
                   if (education.status == Status.LOADING)
-                    CircularProgressIndicator(),
-                  if (education.status == Status.ERROR) Text('Bad connetion'),
+                    const CircularProgressIndicator(),
+                  if (education.status == Status.ERROR) const Text('Bad connection'),
                 ],
               ),
             ),

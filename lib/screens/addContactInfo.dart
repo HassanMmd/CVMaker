@@ -1,6 +1,5 @@
 import 'package:cvmaker/model/contactInfo.dart';
 import 'package:cvmaker/viewmodel/contactInfoViewModel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,8 +28,8 @@ class _AddContactInfoState extends State<AddContactInfo> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Add Language',
+        title: const Text(
+          'Contact Information',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -38,15 +37,15 @@ class _AddContactInfoState extends State<AddContactInfo> {
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Column(children: [
-              SizedBox(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+                children: [
+              const SizedBox(
                 height: 50,
               ),
-              SizedBox(
-                height: 15.0,
-              ),
-              DropdownButton<String>(
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: DropdownButton<String>(
                 value: dropdownValue,
                 icon: const Icon(Icons.arrow_downward),
                 elevation: 16,
@@ -66,6 +65,10 @@ class _AddContactInfoState extends State<AddContactInfo> {
                     child: Text(value),
                   );
                 }).toList(),
+                  ),
+              ),
+              const SizedBox(
+                height: 20.0,
               ),
               SizedBox(
                 height: 50,
@@ -77,13 +80,13 @@ class _AddContactInfoState extends State<AddContactInfo> {
                   },
                   decoration: InputDecoration(
                     hintText: 'Add your $dropdownValue*',
-                    hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
+                    hintStyle: const TextStyle(color: Color(0XFFC3BCBC)),
                     contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                    border: OutlineInputBorder(
+                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                    border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30.0)),
                     ),
-                    enabledBorder: OutlineInputBorder(
+                    enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0XFF568ABB),
                         width: 1.0,
@@ -92,7 +95,7 @@ class _AddContactInfoState extends State<AddContactInfo> {
                         Radius.circular(8.0),
                       ),
                     ),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0XFF568ABB),
                         width: 1.0,
@@ -104,18 +107,18 @@ class _AddContactInfoState extends State<AddContactInfo> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25.0,
               ),
               Row(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 30.0,
                   ),
                   ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                        MaterialStateProperty.all(Color(0XFF568ABB)),
+                        MaterialStateProperty.all(const Color(0XFF568ABB)),
                       ),
                       onPressed: () async {
                         if (data == null) {
@@ -152,19 +155,19 @@ class _AddContactInfoState extends State<AddContactInfo> {
                           Navigator.pop(context);
                         }
                       },
-                      child: Text('Add')),
-                  SizedBox(
+                      child: const Text('Add')),
+                  const SizedBox(
                     width: 200.0,
                   ),
                   ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                        MaterialStateProperty.all(Color(0XFFF22C2C)),
+                        MaterialStateProperty.all(const Color(0XFFF22C2C)),
                       ),
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text('Cancel')),
+                      child: const Text('Cancel')),
                 ],
               )
             ]),

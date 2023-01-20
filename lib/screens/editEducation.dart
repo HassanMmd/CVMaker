@@ -1,16 +1,19 @@
-import 'package:cvmaker/model/workExperience.dart';
-import 'package:cvmaker/networkResopnse.dart';
-import 'package:cvmaker/viewmodel/workExperienceViewModel.dart';
+import 'package:cvmaker/model/educationAndTraining.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import '../viewmodel/educationAndTrainingViewModel.dart';
 
-class WorkExperienceScreen extends StatefulWidget {
+class EditEducation extends StatefulWidget {
+  EducationAndTraining? educationAndTraining;
+
+  EditEducation(this.educationAndTraining, {Key? key}) : super(key: key);
+
   @override
-  State<WorkExperienceScreen> createState() => _WorkExperienceScreenState();
+  State<EditEducation> createState() => _EditEducationState();
 }
 
-class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
+class _EditEducationState extends State<EditEducation> {
   TextEditingController dateInputStartDate = TextEditingController();
   TextEditingController dateInputEndDate = TextEditingController();
 
@@ -21,29 +24,20 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
     super.initState();
   }
 
-  String? role;
-  String? company;
+  String? name;
+  String? school;
   String? start_date;
   String? end_date;
-  bool current = true;
-  String? details;
-
-  NetworkResponse networkResponse = NetworkResponse();
-
-  void onChanged(bool? vvv) {
-    setState(() {
-      current = vvv!;
-    });
-  }
+  String? country;
 
   @override
   Widget build(BuildContext context) {
-    var workExperience = context.watch<WorkExperienceViewModel>();
+    var education = context.watch<EducationAndTrainingViewModel>();
 
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Add Experience',
+            'Edit Education',
             style: TextStyle(color: Colors.white),
           ),
           centerTitle: true,
@@ -63,10 +57,10 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                     child: TextField(
                       // textAlign: TextAlign.center,
                       onChanged: (value) {
-                        role = value;
+                        widget.educationAndTraining?.name = value;
                       },
                       decoration: const InputDecoration(
-                        hintText: 'Role*',
+                        hintText: 'Name*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -103,10 +97,10 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                     child: TextField(
                       // textAlign: TextAlign.center,
                       onChanged: (value) {
-                        company = value;
+                        widget.educationAndTraining?.school = value;
                       },
                       decoration: const InputDecoration(
-                        hintText: 'Company*',
+                        hintText: 'School*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -160,14 +154,15 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                               formattedDate); //formatted date output using intl package =>  2021-03-16
                           setState(() {
                             dateInputStartDate.text = formattedDate;
-                            start_date = dateInputStartDate.text;
+                            widget.educationAndTraining?.start_date =
+                                dateInputStartDate.text;
                             //set output date to TextField value.
                           });
                         } else {}
                       },
                       // textAlign: TextAlign.center,
                       onChanged: (value) {
-                        start_date = value;
+                        widget.educationAndTraining?.start_date = value;
                       },
                       decoration: const InputDecoration(
                         icon: Icon(Icons.calendar_today),
@@ -202,17 +197,6 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  Row(children: [
-                    const SizedBox(
-                      width: 10.0,
-                    ),
-                    Checkbox(
-                      value: current,
-                      onChanged: onChanged,
-                      fillColor: MaterialStateProperty.all(Colors.green),
-                    ),
-                    const Text('This is my current job')
-                  ]),
                   SizedBox(
                     height: 50,
                     width: 350,
@@ -236,14 +220,15 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                               formattedDate); //formatted date output using intl package =>  2021-03-16
                           setState(() {
                             dateInputEndDate.text = formattedDate;
-                            end_date = dateInputEndDate.text;
+                            widget.educationAndTraining?.end_date =
+                                dateInputEndDate.text;
                             //set output date to TextField value.
                           });
                         } else {}
                       },
                       // textAlign: TextAlign.center,
                       onChanged: (value) {
-                        end_date = value;
+                        widget.educationAndTraining?.end_date = value;
                       },
                       decoration: const InputDecoration(
                         icon: Icon(Icons.calendar_today),
@@ -279,18 +264,17 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                     height: 10.0,
                   ),
                   SizedBox(
-                    height: 250,
+                    height: 50,
                     width: 350,
                     child: TextField(
                       textAlign: TextAlign.left,
                       textAlignVertical: TextAlignVertical.top,
-                      maxLines: 10,
                       // textAlign: TextAlign.center,
                       onChanged: (value) {
-                        details = value;
+                        widget.educationAndTraining?.country = value;
                       },
                       decoration: const InputDecoration(
-                        hintText: 'Details*',
+                        hintText: 'Country*',
                         hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -318,75 +302,78 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                       ),
                     ),
                   ),
-                  Row(
-                    children: [
-                      const SizedBox(
-                        width: 30.0,
-                      ),
-                      ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(const Color(0XFF568ABB)),
-                        ),
-                        onPressed: () async {
-                          if (role == null ||
-                              company == null ||
-                              start_date == null ||
-                              end_date == null ||
-                              details == null) {
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return SizedBox(
-                                    height: 200.0,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        const Text(
-                                          'Please fill all the fields',
-                                          style: TextStyle(
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        const SizedBox(height: 25.0),
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('Ok'))
-                                      ],
-                                    ),
-                                  );
-                                });
-                          } else {
-                            await workExperience.addWorkExperience(
-                              WorkExperience(role!, company!, true, false,
-                                  start_date!, end_date!, details!, current),
-                            );
-                            Navigator.pop(context);
-                          }
-                        },
-                        child: const Text('Add'),
-                      ),
-                      const SizedBox(
-                        width: 200.0,
-                      ),
-                      ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(const Color(0XFFF22C2C)),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // SizedBox(
+                        //   width: 30.0,
+                        // ),
+                        Expanded(
+                          flex: 2,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  const Color(0XFF568ABB)),
+                            ),
+                            onPressed: () async {
+                              // if (name == null ||
+                              //     school == null ||
+                              //     start_date == null ||
+                              //     end_date == null ||
+                              //     country == null) {
+                              //   showModalBottomSheet(
+                              //       context: context,
+                              //       builder: (BuildContext context) {
+                              //         return SizedBox(
+                              //           height: 200.0,
+                              //           child: Column(
+                              //             mainAxisAlignment:
+                              //                 MainAxisAlignment.center,
+                              //             children: [
+                              //               const Text(
+                              //                 'Please fill all the fields',
+                              //                 style: TextStyle(
+                              //                     fontSize: 20.0,
+                              //                     fontWeight: FontWeight.bold),
+                              //               ),
+                              //               const SizedBox(height: 25.0),
+                              //               ElevatedButton(
+                              //                   onPressed: () {
+                              //                     Navigator.pop(context);
+                              //                   },
+                              //                   child: const Text('Ok'))
+                              //             ],
+                              //           ),
+                              //         );
+                              //       });
+                              // } else {
+                                await education.editInfo(widget.educationAndTraining!);
+                                Navigator.pop(context);
+                              // }
+                            },
+                            child: const Text('Save'),
                           ),
-                          onPressed: () {
-                            print(current);
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Cancel'))
-                    ],
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    const Color(0XFFF22C2C)),
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Cancel')),
+                        )
+                      ],
+                    ),
                   ),
-                  if (workExperience.status == Status.LOADING)
+                  if (education.status == Status.LOADING)
                     const CircularProgressIndicator(),
-                  if (workExperience.status == Status.ERROR)
-                    const Text('Bad connection'),
+                  if (education.status == Status.ERROR) const Text('Bad connetion'),
                 ],
               ),
             ),

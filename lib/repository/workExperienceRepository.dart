@@ -1,8 +1,5 @@
-import 'package:cvmaker/authenticator.dart';
 import 'package:cvmaker/model/workExperience.dart';
 import 'package:cvmaker/repository/repository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
 import '../networkResopnse.dart';
 
 abstract class WorkExperienceRepository extends Repository{
@@ -12,8 +9,8 @@ abstract class WorkExperienceRepository extends Repository{
 
   Future<NetworkResponse<List<WorkExperience>>> getInfo();
 
-  Future<NetworkResponse> deleteInfo(int id);
+  Future<NetworkResponse> deleteInfo(String id);
 
-  Future<NetworkResponse> editInfo();
+  Future<NetworkResponse> editInfo(WorkExperience workExperience);
 
 }

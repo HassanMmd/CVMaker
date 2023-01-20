@@ -11,7 +11,7 @@ abstract class EducationAndTrainingRepository extends Repository{
 
   Future<NetworkResponse<List<EducationAndTraining>>> getInfo();
 
-  Future<NetworkResponse> deleteInfo(int id);
+  Future<NetworkResponse> deleteInfo(String id);
 
-  Future<NetworkResponse> editInfo();
+  Future<NetworkResponse> editInfo(EducationAndTraining educationAndTraining);
 }

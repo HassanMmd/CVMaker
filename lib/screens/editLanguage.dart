@@ -1,18 +1,20 @@
 import 'package:cvmaker/model/languageSkills.dart';
-import 'package:cvmaker/viewmodel/languageSkillsViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../viewmodel/languageSkillsViewModel.dart';
 
 List<String> levelList = ['Beginner', 'Intermediate', 'Advanced', 'Fluent'];
 
-class AddLanguageSkills extends StatefulWidget {
-  const AddLanguageSkills({Key? key}) : super(key: key);
+class EditLanguage extends StatefulWidget {
+  LanguageSkills? languageSkills;
+
+  EditLanguage(this.languageSkills, {Key? key}) : super(key: key);
 
   @override
-  State<AddLanguageSkills> createState() => _AddLanguageSkillsState();
+  State<EditLanguage> createState() => _EditLanguageState();
 }
 
-class _AddLanguageSkillsState extends State<AddLanguageSkills> {
+class _EditLanguageState extends State<EditLanguage> {
   String? name;
   int level = 0;
 
@@ -25,7 +27,7 @@ class _AddLanguageSkillsState extends State<AddLanguageSkills> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Add Language',
+          'Edit Language',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -47,10 +49,10 @@ class _AddLanguageSkillsState extends State<AddLanguageSkills> {
                 child: TextField(
                   // textAlign: TextAlign.center,
                   onChanged: (value) {
-                    name = value;
+                    widget.languageSkills?.name = value;
                   },
                   decoration: const InputDecoration(
-                    hintText: 'Add language*',
+                    hintText: 'Edit language*',
                     hintStyle: TextStyle(color: Color(0XFFC3BCBC)),
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -117,48 +119,20 @@ class _AddLanguageSkillsState extends State<AddLanguageSkills> {
                       ),
                       onPressed: () async {
                         if (dropdownValue == 'Beginner') {
-                          level = 1;
+                          widget.languageSkills?.level = 1;
                         }
                         if (dropdownValue == 'Intermediate') {
-                          level = 2;
+                          widget.languageSkills?.level = 2;
                         }
                         if (dropdownValue == 'Advanced') {
-                          level = 3;
+                          widget.languageSkills?.level = 3;
                         }
                         if (dropdownValue == 'Fluent') {
-                          level = 4;
+                          widget.languageSkills?.level = 4;
                         }
-                        if (name == null) {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return SizedBox(
-                                  height: 200.0,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        'Please fill all the fields',
-                                        style: TextStyle(
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      const SizedBox(height: 25.0),
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('Ok'))
-                                    ],
-                                  ),
-                                );
-                              });
-                        } else {
-                          print(level);
-                          await language
-                              .addLanguageSkills(LanguageSkills(name!, level));
-                          Navigator.pop(context);
-                        }
+                        print(level);
+                        await language.editInfo(widget.languageSkills!);
+                        Navigator.pop(context);
                       },
                       child: const Text('Add')),
                   const SizedBox(
@@ -167,7 +141,7 @@ class _AddLanguageSkillsState extends State<AddLanguageSkills> {
                   ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(Color(0XFFF22C2C)),
+                            MaterialStateProperty.all(const Color(0XFFF22C2C)),
                       ),
                       onPressed: () {
                         Navigator.pop(context);

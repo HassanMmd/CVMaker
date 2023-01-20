@@ -11,6 +11,7 @@ class ClientInterceptor implements InterceptorContract{
     try {
       data.headers['Content-Type'] = 'application/json';
       data.headers['Authorization']= 'Bearer $id';
+      print('token ID = $id');
     } catch (e) {
       print(e);
     }

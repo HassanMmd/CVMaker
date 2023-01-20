@@ -1,29 +1,23 @@
 class PersonalInfo {
   String name;
-  String dateOfBirth;
-  String gender;
-  String nationality;
-  String email;
-  int phoneNumber;
-  String address;
+  String role;
 
-  PersonalInfo(this.name, this.dateOfBirth, this.gender, this.nationality,
-      this.email, this.phoneNumber, this.address);
+  String brief;
+
+  String? id;
+
+  PersonalInfo(this.name, this.role, this.brief, {this.id});
 
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'dateOfBirth': dateOfBirth,
-      'gender': gender,
-      'nationality': nationality,
-      'email': email,
-      'phoneNumber': phoneNumber,
-      'address': address,
+      'role': role,
+      'brief': brief,
+      'id': id,
     };
   }
 
   factory PersonalInfo.fromMap(Map<String, dynamic> map) {
-    return PersonalInfo(map['name'], map['dateOfBirth'], map['gender'],
-        map['nationality'], map['email'], map['phoneNumber'], map['address']);
+    return PersonalInfo(map['name'], map['role'], map['brief'],id: map['id']);
   }
 }
